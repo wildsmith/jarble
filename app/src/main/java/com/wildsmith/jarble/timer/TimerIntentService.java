@@ -13,6 +13,7 @@ import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
 import com.wildsmith.jarble.ui.jar.SingleJarActivity;
+import com.wildsmith.jarble.ui.jars.JarsActivity;
 import com.wildsmith.jarble.ui.notification.NotificationHelper;
 
 public class TimerIntentService extends IntentService {
@@ -58,6 +59,19 @@ public class TimerIntentService extends IntentService {
         return timerIntent;
     }
 
+    @NonNull
+    private static Intent buildEditJarIntent(@NonNull Context context) {
+        Intent intent = new Intent(context, SingleJarActivity.class);
+        intent.putExtra(SingleJarActivity.Extra.MODEL.name(), JarTableInMemoryCache.getInProgressJarTableModel(context));
+        intent.putExtra(SingleJarActivity.Extra.MODE.name(), SingleJarActivity.Mode.EDIT);
+        return intent;
+    }
+
+    @NonNull
+    private static Intent buildViewJarsIntent(@NonNull Context context) {
+        return new Intent(context, JarsActivity.class);
+    }
+
     public TimerIntentService() {
         super(TAG);
     }
@@ -82,6 +96,7 @@ public class TimerIntentService extends IntentService {
     static void showOnGoingTimerNotification(@NonNull Context context, int notificationId, @NonNull String passingTimeText,
         int passedSeconds) {
         Intent intent = buildTimerIntent(context, Action.STOP.ordinal(), notificationId, passingTimeText, passedSeconds);
+        Intent contentIntent = buildViewJarsIntent(context);
 
         new NotificationHelper.Builder()
             .setId(notificationId)
@@ -92,12 +107,14 @@ public class TimerIntentService extends IntentService {
             .setNotificationFlags(Notification.FLAG_ONGOING_EVENT)
             .addAction(new NotificationCompat.Action(R.drawable.ic_pause_black, context.getString(R.string.notification_pause),
                 PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)))
+            .setContentIntent(PendingIntent.getActivity(context, 0, contentIntent, 0))
             .show(context);
     }
 
     static void showHaltedNotification(@NonNull Context context, int notificationId, @NonNull String passingTimeText,
         int passedSeconds) {
         Intent intent = buildTimerIntent(context, Action.PLAY.ordinal(), notificationId, passingTimeText, passedSeconds);
+        Intent contentIntent = buildViewJarsIntent(context);
 
         new NotificationHelper.Builder()
             .setId(notificationId)
@@ -109,13 +126,12 @@ public class TimerIntentService extends IntentService {
             .addAction(new NotificationCompat.Action(R.drawable.ic_play_arrow_black,
                 ((passedSeconds > 0) ? context.getString(R.string.notification_resume) : context.getString(R.string.notification_play)),
                 PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)))
+            .setContentIntent(PendingIntent.getActivity(context, 0, contentIntent, 0))
             .show(context);
     }
 
     static void showAlertNotification(@NonNull Context context, int notificationId) {
-        Intent intent = new Intent(context, SingleJarActivity.class);
-        intent.putExtra(SingleJarActivity.Extra.MODEL.name(), JarTableInMemoryCache.getInProgressJarTableModel(context));
-        intent.putExtra(SingleJarActivity.Extra.MODE.name(), SingleJarActivity.Mode.EDIT);
+        Intent intent = buildEditJarIntent(context);
 
         new NotificationHelper.Builder()
             .setId(notificationId)
