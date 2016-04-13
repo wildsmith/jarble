@@ -9,6 +9,13 @@ Jarble was created to help monitor behavior and increase the desired behaviors b
 
 *A token economy is a system of reinforcers (rewards) used to increase a desired behavior while simultaneously decreasing the undesired behaviors. A token board is a visual representation of the token economy. In this case, the marble jar is the token board and the marbles inside represent a way to earn the reward. Using a token board is often found more encouraging for the child, student or client because they can see their progress towards the reward they are working for.
 
+Video
+==============
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=B_3pOmRrcZ8" target="_blank">
+<img src="http://img.youtube.com/vi/B_3pOmRrcZ8/0.jpg" alt="Jarble App Video" width="240" height="180" border="10" />
+</a>
+
 Screen Shots
 ==============
 
