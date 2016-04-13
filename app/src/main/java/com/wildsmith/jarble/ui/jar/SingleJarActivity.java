@@ -187,18 +187,7 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
         BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
 
         if (hadEditingMarbles) {
-            updateModelImage();
-            TimerService timerService = BaseApplication.getTimerService();
-            if (timerService != null && JarTableMarbleModel.hasInProgressMarbles(this.model.getMarbles())) {
-                timerService.startTimer();
-            } else {
-                this.model.setInProgress(false);
-            }
-            JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, this.model);
-
-            BroadcastHelper.sendBroadcast(SingleJarActivity.this,
-                new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
-            finish();
+            saveAndFinishActivity();
         }
     }
 
@@ -283,21 +272,7 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
                 if (JarTableMarbleModel.hasEditingMarbles(model.getMarbles())) {
                     displayInfoDialog(JarTableMarbleModel.getEditingMarble(model.getMarbles()));
                 } else {
-                    updateModelImage();
-
-                    if (!JarTableMarbleModel.hasInProgressMarbles(model.getMarbles())) {
-                        model.setInProgress(false);
-                    } else {
-                        TimerService timerService = BaseApplication.getTimerService();
-                        if (timerService != null && !timerService.isRunning() && !timerService.isPaused()) {
-                            timerService.startTimer();
-                        }
-                    }
-                    JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, model);
-
-                    BroadcastHelper.sendBroadcast(SingleJarActivity.this,
-                        new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
-                    finish();
+                    saveAndFinishActivity();
                 }
                 return true;
             }
@@ -316,6 +291,24 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
             view.setDrawingCacheEnabled(false);
             model.setImage(byteArray);
         }
+    }
+
+    private void saveAndFinishActivity() {
+        updateModelImage();
+
+        if (!JarTableMarbleModel.hasInProgressMarbles(this.model.getMarbles())) {
+            this.model.setInProgress(false);
+        } else {
+            TimerService timerService = BaseApplication.getTimerService();
+            if (timerService != null && !timerService.isRunning() && !timerService.isPaused()) {
+                timerService.startTimer();
+            }
+        }
+        JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, this.model);
+
+        BroadcastHelper.sendBroadcast(SingleJarActivity.this,
+            new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
+        finish();
     }
 
     @Override
