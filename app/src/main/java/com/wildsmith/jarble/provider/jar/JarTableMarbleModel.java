@@ -220,17 +220,13 @@ public class JarTableMarbleModel implements Parcelable {
 
     public static void updateForNotes(@NonNull JarTableMarbleModel[] marbles, @NonNull JarTableMarbleModel updatedMarble) {
         for (JarTableMarbleModel marble : marbles) {
-            if (marble == null) {
+            if (marble == null || marble.getId() != updatedMarble.getId()) {
                 continue;
             }
 
-            switch (marble.getStateAsEnum()) {
-                case IN_PROGRESS:
-                case EDITING:
-                    marble.purposeNotes = updatedMarble.purposeNotes;
-                    marble.performanceNotes = updatedMarble.performanceNotes;
-                    break;
-            }
+            marble.purposeNotes = updatedMarble.purposeNotes;
+            marble.performanceNotes = updatedMarble.performanceNotes;
+            break;
         }
     }
 
