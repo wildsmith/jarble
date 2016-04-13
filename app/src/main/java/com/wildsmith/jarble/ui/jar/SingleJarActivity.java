@@ -284,12 +284,14 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
                     displayInfoDialog(JarTableMarbleModel.getEditingMarble(model.getMarbles()));
                 } else {
                     updateModelImage();
-                    TimerService timerService = BaseApplication.getTimerService();
-                    if (timerService != null && !timerService.isRunning() && !timerService.isPaused() &&
-                        JarTableMarbleModel.hasInProgressMarbles(model.getMarbles())) {
-                        timerService.startTimer();
-                    } else {
+
+                    if (!JarTableMarbleModel.hasInProgressMarbles(model.getMarbles())) {
                         model.setInProgress(false);
+                    } else {
+                        TimerService timerService = BaseApplication.getTimerService();
+                        if (timerService != null && !timerService.isRunning() && !timerService.isPaused()) {
+                            timerService.startTimer();
+                        }
                     }
                     JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, model);
 

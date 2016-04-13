@@ -1,4 +1,4 @@
-package com.wildsmith.jarble.ui.bitmap.bitmap;
+package com.wildsmith.jarble.ui.bitmap;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -321,7 +321,8 @@ public class BitmapLoader {
                     break;
                 case FILE:
                     try {
-                        bitmap = BitmapUtils.decodeSampledBitmapFromFile((String) params[Index.IMAGE_PATH.ordinal()], width, height);
+                        BitmapUtils
+                            .decodeSampledBitmapFromFile((String) params[Index.IMAGE_PATH.ordinal()], width, height);
                     } catch (Exception e) {
                         if (resourceId != 0) {
                             Log.d(TAG, "Could not load the bitmap from file. Attempting to use resourceId.", e);

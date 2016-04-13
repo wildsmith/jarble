@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.ui.BaseActivity;
-import com.wildsmith.jarble.ui.bitmap.bitmap.BitmapLoader;
+import com.wildsmith.jarble.ui.bitmap.BitmapLoader;
 
 public class InstructionsActivity extends BaseActivity {
 

@@ -15,7 +15,7 @@ import android.view.ViewAnimationUtils;
 
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.provider.jar.JarTableModel;
-import com.wildsmith.jarble.ui.bitmap.bitmap.BitmapLoader;
+import com.wildsmith.jarble.ui.bitmap.BitmapLoader;
 import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelView;
 
 public class JarFloatingActionButton extends FloatingActionButton

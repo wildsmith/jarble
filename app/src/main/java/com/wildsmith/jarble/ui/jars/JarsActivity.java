@@ -39,7 +39,7 @@ import com.wildsmith.jarble.provider.jar.JarTableModel;
 import com.wildsmith.jarble.timer.TimerService;
 import com.wildsmith.jarble.ui.BaseActivity;
 import com.wildsmith.jarble.ui.GenericDialogFragment;
-import com.wildsmith.jarble.ui.bitmap.bitmap.BitmapLoader;
+import com.wildsmith.jarble.ui.bitmap.BitmapLoader;
 import com.wildsmith.jarble.ui.info.DescriptionActivity;
 import com.wildsmith.jarble.ui.info.InstructionsActivity;
 import com.wildsmith.jarble.ui.jars.monthly.MonthlyFragment;

@@ -9,8 +9,6 @@ import com.wildsmith.jarble.provider.DeleteProvider;
 
 public class JarTableDeleteProvider extends JarTableProviderUri implements DeleteProvider {
 
-    private static final String TAG = JarTableDeleteProvider.class.getSimpleName();
-
     @Override
     public int delete(@NonNull Context context, @NonNull SQLiteOpenHelper openHelper, @NonNull Uri uri, String selection,
         String[] selectionArgs) {

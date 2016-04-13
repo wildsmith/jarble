@@ -1,4 +1,4 @@
-package com.wildsmith.jarble.ui.bitmap.bitmap;
+package com.wildsmith.jarble.ui.bitmap;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
