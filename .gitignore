@@ -6,8 +6,3 @@ build/
 .repo
 *.iml
 captures/
-
-
-# Modules
-mimic/
-mimicpal/
