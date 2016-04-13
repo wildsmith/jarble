@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="alarm_already_running">A behavioral period is currently being monitored. If you wish to pause click the pause
+        bottom at the bottom of the screen.
+    </string>
+    <string name="alarm_already_running_dismiss_button">Dismiss</string>
+
+    <string name="alarm_recovery_title">Alarm Recovery</string>
+    <string name="alarm_recovery_message">It looks like an alarm was running before the app shut down. Would you like to continue the
+        current in
+        progress jar?
+    </string>
+
+    <string name="jar_in_progress_title">Jar In Progress</string>
+    <string name="jar_in_progress_message">Would you like to continue with the in progress jar?</string>
+
+</resources>

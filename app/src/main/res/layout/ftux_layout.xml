@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/medium_green">
+
+
+    <RelativeLayout
+            android:id="@+id/continue_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/continue_button"
+                android:layout_alignBottom="@+id/continue_button"
+                android:background="@color/dark_green"/>
+
+        <Button
+                android:id="@+id/continue_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="@string/continue_string"
+                style="?android:attr/borderlessButtonStyle"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/continue_button_container">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"/>
+
+            <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="@dimen/splash_fab_size"
+                    android:layout_height="@dimen/splash_fab_size"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal">
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/floating_action_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/icon_puzzle_piece"
+                        android:layout_margin="@dimen/normal_fab_margin"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_pressed_translation_z"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

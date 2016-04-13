@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="remove_all_updates_message">If you close the editor without saving updates made will be lost.</string>
+    <string name="remove_all_updates_continue_button">@string/continue_string</string>
+    <string name="remove_all_updates_dismiss_button">@string/dismiss_string</string>
+
+    <string name="marble_info_title">Marble Information</string>
+    <string name="marble_info_purpose_subtitle">Purpose Notes</string>
+    <string name="marble_info_performance_subtitle">Performance Notes</string>
+    <string name="marble_info_achievement_subtitle">For the reasons listed above the marble %s achieved.</string>
+    <string name="marble_info_not_achieved">was not</string>
+    <string name="marble_info_achieved">was</string>
+    <string name="marble_info_notes">notes</string>
+
+    <string name="achievement_title">Achievement</string>
+    <string name="achievement_subtitle">Have the purpose(s) of the marbles been met?</string>
+
+
+    <string name="toolbar_title_view">View Jar</string>
+    <string name="toolbar_title_edit">Edit Jar</string>
+
+    <string-array name="colorCategories">
+        <item>Red</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Purple</item>
+    </string-array>
+
+</resources>

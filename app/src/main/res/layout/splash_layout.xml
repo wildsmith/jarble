@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey">
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="@dimen/splash_fab_size"
+            android:layout_height="@dimen/splash_fab_size"
+            android:layout_centerInParent="true">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floating_action_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_puzzle_piece"
+                android:alpha="0"
+                android:layout_margin="@dimen/normal_fab_margin"
+                app:fabSize="normal"
+                app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                app:rippleColor="@color/normal_fab_ripple"
+                app:backgroundTint="@color/normal_fab_background"
+                app:borderWidth="@dimen/default_fab_border_width"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

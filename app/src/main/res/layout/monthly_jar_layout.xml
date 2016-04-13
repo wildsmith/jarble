@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wildsmith.jarble.ui.jars.JarFloatingActionButton
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/floating_action_button"
+        android:layout_width="@dimen/monthly_jar_size"
+        android:layout_height="@dimen/monthly_jar_size"
+        app:fabSize="normal"
+        app:elevation="@dimen/default_fab_elevation"
+        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+        app:rippleColor="@color/normal_fab_ripple"
+        app:backgroundTint="@color/normal_fab_background"
+        app:borderWidth="@dimen/default_fab_border_width"/>

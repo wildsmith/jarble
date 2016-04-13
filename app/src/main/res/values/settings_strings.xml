@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_toolbar_title">Settings</string>
+
+    <string name="gameplay_title">Gameplay</string>
+    <string name="timer_title">Timer</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="behavior_duration">Behavior duration</string>
+    <string name="behavior_duration_summary">%s will pass before a given behavioral check in.</string>
+    <string name="behavior_duration_dialog_title">Select duration</string>
+    <string-array name="available_duration_periods">
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+    <string-array name="available_duration_periods_values">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+    <string name="behavior_duration_default_value">20</string>
+    <string name="marble_achievements">Marble achievements</string>
+    <string name="marble_achievements_summary">%s will be earned for every behavior check in.</string>
+    <string name="marble_achievements_dialog_title">Select achievements</string>
+    <string-array name="available_achievements">
+        <item>1 marble</item>
+        <item>2 marbles</item>
+        <item>5 marbles</item>
+        <item>10 marbles</item>
+    </string-array>
+    <string-array name="available_achievements_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+    <string name="marble_achievements_default_value">2</string>
+
+</resources>

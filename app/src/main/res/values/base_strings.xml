@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">Jarble</string>
+
+    <string name="linear_layout_manager">android.support.v7.widget.LinearLayoutManager</string>
+
+    <string name="timed_behavioral_period">Time left for behavioral period.</string>
+    <string name="timed_behavioral_period_remaining">00 : 00</string>
+
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+
+    <string name="no_string">No</string>
+    <string name="yes_string">Yes</string>
+    <string name="continue_string">Continue</string>
+    <string name="dismiss_string">Dismiss</string>
+    <string name="ok_string">Ok</string>
+
+</resources>

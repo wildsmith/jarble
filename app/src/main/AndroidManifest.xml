@@ -1,0 +1,50 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.wildsmith.jarble">
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+            android:name=".BaseApplication"
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher"
+            android:supportsRtl="true"
+            android:theme="@style/NoActionBarTheme.Preferences.transitions">
+        <activity
+                android:name=".ui.splash.SplashActivity"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.ftux.FTUXActivity"/>
+        <activity
+                android:name=".ui.jars.JarsActivity"
+                android:launchMode="singleTop"/>
+        <activity android:name=".ui.jar.SingleJarActivity"
+                  android:screenOrientation="portrait">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.jars.JarsActivity"/>
+        </activity>
+        <activity android:name=".ui.info.InstructionsActivity"/>
+        <activity android:name=".ui.info.DescriptionActivity"/>
+        <activity android:name=".preferences.SettingsActivity"/>
+
+        <service
+                android:name=".timer.TimerIntentService"
+                android:exported="false"/>
+
+        <service
+                android:name=".timer.TimerService"
+                android:exported="false"/>
+
+        <provider
+                android:name=".provider.jar.provider.JarTableProvider"
+                android:authorities="com.wildsmith.jarble"
+                android:exported="false"/>
+
+    </application>
+
+</manifest>

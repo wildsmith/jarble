@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/jar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="6dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/jar_background_color_two"
+            app:cardCornerRadius="75dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="25dp"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+            <LinearLayout
+                    android:id="@+id/marbles_first_row"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4">
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_nine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/marbles_second_row"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4">
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_seven"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_eight"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/marbles_third_row"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4">
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_four"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_five"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_six"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/marbles_fourth_row"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4">
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_zero"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_one"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_two"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/marble_three"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/large_fab_size"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/large_fab_spacing"
+                        app:fabSize="normal"
+                        app:elevation="@dimen/default_fab_elevation"
+                        app:pressedTranslationZ="@dimen/default_fab_pressed_translation_z"
+                        app:rippleColor="@color/normal_fab_ripple"
+                        app:backgroundTint="@color/normal_fab_background"
+                        app:borderWidth="@dimen/default_fab_border_width"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/jar_lid_one"
+            android:layout_width="150dp"
+            android:layout_height="10dp"
+            android:elevation="6dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            app:cardBackgroundColor="@color/jar_lid_three"
+            app:cardCornerRadius="2dp"
+            app:cardPreventCornerOverlap="true"/>
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/jar_lid_two"
+            android:layout_width="150dp"
+            android:layout_height="10dp"
+            android:elevation="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/jar_lid_one"
+            app:cardBackgroundColor="@color/jar_lid_two"
+            app:cardCornerRadius="2dp"
+            app:cardPreventCornerOverlap="true"/>
+
+    <android.support.v7.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="10dp"
+            android:elevation="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/jar_lid_two"
+            app:cardBackgroundColor="@color/jar_lid_one"
+            app:cardCornerRadius="2dp"
+            app:cardPreventCornerOverlap="true"/>
+
+</merge>

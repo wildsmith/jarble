@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="jar_background_color_one">#B1ECF4</color>
+    <color name="jar_background_color_two">#47D1E3</color>
+
+    <color name="jar_lid_one">#1495F8</color>
+    <color name="jar_lid_two">#EB1762</color>
+    <color name="jar_lid_three">#FFFF3B</color>
+
+    <array name="red_swatches">
+        <item>#B71C1C</item>
+        <item>#C62828</item>
+        <item>#D32F2F</item>
+        <item>#E53935</item>
+        <item>#F44336</item>
+        <item>#EF5350</item>
+        <item>#E57373</item>
+        <item>#EF9A9A</item>
+        <item>#FFCDD2</item>
+    </array>
+
+    <array name="orange_swatches">
+        <item>#BF360C</item>
+        <item>#D84315</item>
+        <item>#E64A19</item>
+        <item>#F4511E</item>
+        <item>#FF5722</item>
+        <item>#FF7043</item>
+        <item>#FF8A65</item>
+        <item>#FFAB91</item>
+        <item>#FFCCBC</item>
+    </array>
+
+    <array name="yellow_swatches">
+        <item>#F57F19</item>
+        <item>#F9A825</item>
+        <item>#FBC02D</item>
+        <item>#FDD835</item>
+        <item>#FFEB3B</item>
+        <item>#FFEE58</item>
+        <item>#FFF176</item>
+        <item>#FFF59D</item>
+        <item>#FFF9C4</item>
+    </array>
+
+    <array name="green_swatches">
+        <item>#1B5E20</item>
+        <item>#2E7D32</item>
+        <item>#388E3C</item>
+        <item>#43A047</item>
+        <item>#4CAF50</item>
+        <item>#66BB6A</item>
+        <item>#81C784</item>
+        <item>#A5D6A7</item>
+        <item>#C8E6C9</item>
+    </array>
+
+    <array name="blue_swatches">
+        <item>#01579B</item>
+        <item>#0277BD</item>
+        <item>#0288D1</item>
+        <item>#039BE5</item>
+        <item>#03A9F4</item>
+        <item>#29B6F6</item>
+        <item>#4FC3F7</item>
+        <item>#81D4FA</item>
+        <item>#B3E5FC</item>
+    </array>
+
+    <array name="purple_swatches">
+        <item>#311B92</item>
+        <item>#4527A0</item>
+        <item>#512DA8</item>
+        <item>#5E35B1</item>
+        <item>#673AB7</item>
+        <item>#7E57C2</item>
+        <item>#9575CD</item>
+        <item>#B39DDB</item>
+        <item>#D1C4E9</item>
+    </array>
+
+</resources>

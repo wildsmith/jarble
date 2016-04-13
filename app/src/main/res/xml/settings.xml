@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/timer_title"
+            android:key="pref_key_storage_settings">
+
+        <CheckBoxPreference
+                android:key="VIBRATION"
+                android:defaultValue="true"
+                android:title="@string/vibrate"/>
+
+        <ListPreference
+                android:key="BEHAVIOR_DURATION"
+                android:title="@string/behavior_duration"
+                android:summary="@string/behavior_duration_summary"
+                android:dialogTitle="@string/behavior_duration_dialog_title"
+                android:entries="@array/available_duration_periods"
+                android:entryValues="@array/available_duration_periods_values"
+                android:defaultValue="@string/behavior_duration_default_value"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/gameplay_title"
+            android:key="pref_key_storage_settings">
+
+        <ListPreference
+                android:key="MARBLE_ACHIEVEMENTS"
+                android:title="@string/marble_achievements"
+                android:summary="@string/marble_achievements_summary"
+                android:dialogTitle="@string/marble_achievements_dialog_title"
+                android:entries="@array/available_achievements"
+                android:entryValues="@array/available_achievements_values"
+                android:defaultValue="@string/marble_achievements_default_value"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

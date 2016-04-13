@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wildsmith.jarble.ui.jars.yearly.YearlyYearRecyclerModelView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/yearly_padding_left"/>

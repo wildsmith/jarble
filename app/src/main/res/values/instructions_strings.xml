@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="instructions_title">Instructions</string>
+    <string name="instructions_info">
+        <Data>
+            <![CDATA[
+            <p>The first step to using Jarble is to choose two target behaviors.
+            <br>For example: following directions and marking good choices.</p>
+            <p>Once the target behaviors are entered into the app, notes can be made about the chosen behaviors per interval.</p>
+            <p>Each jar has ten marbles and in order to earn a reward at the end of two hours, eight marbles must be filled in.</p>
+            <p>The intervals will run on two hour time periods and can be started at any time.</p>
+            <p>The app will set a timer for you once you start an interval for the check-in periods.
+            <br>The check-in timer will alert you every thirty minutes and at this time you will discuss how many marbles were earned (at each check-in two marbles can be earned).<p>
+             <p>Rewards should be a pre-determined list and can only be available through achieving the required eight marbles.
+             <br>Rewards that are available anytime may possibly be less effective when using this token system.</p>
+           ]]>
+        </Data>
+
+    </string>
+
+</resources>

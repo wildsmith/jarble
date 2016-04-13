@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="monthly_recycler_view_item_decoration_space">4dp</dimen>
+
+    <dimen name="monthly_jar_size">70dp</dimen>
+
+</resources>

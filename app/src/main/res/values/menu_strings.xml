@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="new_jar">New Jar</string>
+    <string name="weekly_view">Weekly View</string>
+    <string name="monthly_view">Monthly View</string>
+    <string name="yearly_view">Yearly View</string>
+
+    <string name="save">Save</string>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="description_title">Description</string>
+    <string name="description_info">
+        <Data>
+            <![CDATA[
+            <p>Jarble is a new innovative way to use token boards.</p>
+            <p>Jarble consists of a marble jar which functions as a token earning system, the marbles inside can be earned and colored in to show they have been earned.
+            <br>Instead of carrying around a token board, why not download it and conveniently carry it around on your phone or tablet instead?</p>
+            <p>With the versatility of Jarble, you will be able to check-in with your child, student or client on their behavior and let them decorate the marbles they earn.</p>
+            <p>This new creative token system engages its users to work hard to earn marbles in a variety of settings that include at home, in the community and even in school.</p>
+         ]]>
+        </Data>
+    </string>
+
+</resources>

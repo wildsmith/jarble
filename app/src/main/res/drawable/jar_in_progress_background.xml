@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap android:src="@drawable/icon_puzzle_piece_grey"
+                android:gravity="center"/>
+    </item>
+    <item>
+        <bitmap android:src="@drawable/ic_update_black"
+                android:gravity="center"/>
+    </item>
+</layer-list>

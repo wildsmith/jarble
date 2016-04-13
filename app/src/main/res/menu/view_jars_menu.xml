@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/weekly_view"
+          android:icon="@drawable/ic_view_quilt_white"
+          android:title="@string/weekly_view"
+          app:showAsAction="always"/>
+
+    <item android:id="@+id/monthly_view"
+          android:icon="@drawable/ic_view_module_white"
+          android:title="@string/monthly_view"
+          app:showAsAction="always"/>
+
+    <item android:id="@+id/yearly_view"
+          android:icon="@drawable/ic_view_list_white"
+          android:title="@string/yearly_view"
+          app:showAsAction="always"/>
+
+</menu>
