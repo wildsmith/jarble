@@ -41,8 +41,13 @@
                 android:exported="false"/>
 
         <provider
-                android:name=".provider.jar.provider.JarTableProvider"
-                android:authorities="com.wildsmith.jarble"
+                android:name=".jar.provider.JarTableProvider"
+                android:authorities="com.wildsmith.jarble.jar"
+                android:exported="false"/>
+
+        <provider
+                android:name=".marble.provider.MarbleTableProvider"
+                android:authorities="com.wildsmith.jarble.marble"
                 android:exported="false"/>
 
     </application>

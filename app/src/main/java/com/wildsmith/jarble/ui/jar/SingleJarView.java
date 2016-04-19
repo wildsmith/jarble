@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableMarbleModel;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.marble.MarbleTableModel;
+import com.wildsmith.jarble.jar.JarTableModel;
 
 import java.lang.ref.WeakReference;
 
@@ -63,7 +63,7 @@ public class SingleJarView extends RelativeLayout implements View.OnClickListene
             return;
         }
 
-        JarTableMarbleModel marbleModel = getMarbleModel(view.getId());
+        MarbleTableModel marbleModel = getMarbleModel(view.getId());
         if (marbleModel == null) {
             return;
         }
@@ -84,14 +84,14 @@ public class SingleJarView extends RelativeLayout implements View.OnClickListene
     }
 
     private void setupDisabledView() {
-        for (int index = 0; index < JarTableMarbleModel.MAX_MARBLE_COUNT; index++) {
-            JarTableMarbleModel marbleModel = model.getMarbles()[index];
+        for (int index = 0; index < MarbleTableModel.MAX_MARBLE_COUNT; index++) {
+            MarbleTableModel marbleModel = model.getMarbles()[index];
             FloatingActionButton marble = (FloatingActionButton) findViewById(getMarbleViewId(index));
             if (marble == null) {
                 continue;
             }
 
-            switch (JarTableMarbleModel.State.fromInt(marbleModel.getState())) {
+            switch (MarbleTableModel.State.fromInt(marbleModel.getState())) {
                 case IN_PROGRESS:
                     marble.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_update_black));
                     marble.setEnabled(true);
@@ -118,7 +118,7 @@ public class SingleJarView extends RelativeLayout implements View.OnClickListene
     }
 
     @Nullable
-    private JarTableMarbleModel getMarbleModel(int viewId) {
+    private MarbleTableModel getMarbleModel(int viewId) {
         switch (viewId) {
             case R.id.marble_zero:
                 return model.getMarbles()[0];
@@ -175,6 +175,6 @@ public class SingleJarView extends RelativeLayout implements View.OnClickListene
 
     interface Listener {
 
-        void onMarbleClicked(@NonNull JarTableMarbleModel model, @NonNull FloatingActionButton marbleView);
+        void onMarbleClicked(@NonNull MarbleTableModel model, @NonNull FloatingActionButton marbleView);
     }
 }

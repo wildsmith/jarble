@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.jars.JarsFragment;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerAdapter;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
-import com.wildsmith.jarble.utils.CollectionUtils;
-import com.wildsmith.jarble.utils.GridAutofitLayoutManager;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.utils.CollectionUtils;
+import com.wildsmith.utils.GridAutofitLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

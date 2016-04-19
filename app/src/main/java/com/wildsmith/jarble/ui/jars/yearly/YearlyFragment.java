@@ -13,11 +13,11 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.jars.JarsFragment;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerAdapter;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
-import com.wildsmith.jarble.utils.CollectionUtils;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.utils.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

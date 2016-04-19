@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelListener;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelView;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelListener;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
 
 public class MonthlyMonthRecyclerModelView extends LinearLayout implements
     DynamicRecyclerModelView<MonthlyMonthRecyclerModel, DynamicRecyclerModelListener> {

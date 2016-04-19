@@ -11,10 +11,10 @@ import android.support.v7.app.NotificationCompat;
 
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
+import com.wildsmith.jarble.jar.JarTableInMemoryCache;
 import com.wildsmith.jarble.ui.jar.SingleJarActivity;
 import com.wildsmith.jarble.ui.jars.JarsActivity;
-import com.wildsmith.jarble.ui.notification.NotificationHelper;
+import com.wildsmith.notification.NotificationHelper;
 
 public class TimerIntentService extends IntentService {
 

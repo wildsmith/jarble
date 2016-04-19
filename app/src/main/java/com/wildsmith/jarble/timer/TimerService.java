@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.wildsmith.jarble.preferences.JarblePreferencesHelper;
-import com.wildsmith.jarble.utils.ThreadUtils;
+import com.wildsmith.utils.ThreadUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;

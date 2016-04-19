@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableMarbleModel;
+import com.wildsmith.jarble.marble.MarbleTableModel;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -27,13 +27,13 @@ public class MarbleInfoDialogFragment extends DialogFragment {
 
     private WeakReference<Listener> listenerWeakReference;
 
-    private JarTableMarbleModel model;
+    private MarbleTableModel model;
 
     public void setListener(Listener listener) {
         this.listenerWeakReference = new WeakReference<>(listener);
     }
 
-    public void setModel(JarTableMarbleModel model) {
+    public void setModel(MarbleTableModel model) {
         this.model = model;
     }
 
@@ -54,7 +54,7 @@ public class MarbleInfoDialogFragment extends DialogFragment {
         final String performanceNotes = model.getPerformanceNotes();
 
         final Mode mode;
-        switch (JarTableMarbleModel.State.fromInt(model.getState())) {
+        switch (MarbleTableModel.State.fromInt(model.getState())) {
             case IN_PROGRESS:
             case EDITING:
                 mode = Mode.EDIT;
@@ -144,6 +144,6 @@ public class MarbleInfoDialogFragment extends DialogFragment {
 
     public interface Listener {
 
-        void onJarTableMarbleModelUpdated(JarTableMarbleModel model);
+        void onJarTableMarbleModelUpdated(MarbleTableModel model);
     }
 }

@@ -1,7 +1,7 @@
 package com.wildsmith.jarble.ui.jars.weekly;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.jars.JarViewRecyclerModel;
 
 class WeeklyJarRecyclerModel extends JarViewRecyclerModel {

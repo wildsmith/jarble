@@ -10,19 +10,17 @@ import android.view.ViewGroup;
 
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.jars.JarsFragment;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerAdapter;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
-import com.wildsmith.jarble.utils.CollectionUtils;
-import com.wildsmith.jarble.utils.GridAutofitLayoutManager;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.utils.CollectionUtils;
+import com.wildsmith.utils.DateUtils;
+import com.wildsmith.utils.GridAutofitLayoutManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class WeeklyFragment extends JarsFragment {
 
@@ -133,14 +131,10 @@ public class WeeklyFragment extends JarsFragment {
         return recyclerItems;
     }
 
-    private String buildDayTitle(int dayOfMonth, long timestamp, int previousYear, int currentYear) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp);
-        Date date = calendar.getTime();
-
+    private String buildDayTitle(int dayOfMonth, String timestamp, int previousYear, int currentYear) {
         final String yearString = (previousYear == currentYear) ? "" : ", " + previousYear;
-        final String monthString = new SimpleDateFormat("MMM", Locale.getDefault()).format(date);
-        final String dayString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(date);
+        final String monthString = DateUtils.reformatTimestamp(timestamp, DateUtils.HALF_MONTH_FORMAT);
+        final String dayString = DateUtils.reformatTimestamp(timestamp, DateUtils.FULL_DAY_FORMAT);
         return dayString + ", " + monthString + " " + dayOfMonth + " " + yearString;
     }
 

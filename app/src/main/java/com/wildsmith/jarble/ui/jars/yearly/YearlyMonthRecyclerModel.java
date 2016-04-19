@@ -1,14 +1,13 @@
 package com.wildsmith.jarble.ui.jars.yearly;
 
-import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
+import android.support.annotation.NonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.wildsmith.jarble.R;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.utils.DateUtils;
+
 import java.util.List;
-import java.util.Locale;
 
 class YearlyMonthRecyclerModel implements DynamicRecyclerModel {
 
@@ -16,14 +15,9 @@ class YearlyMonthRecyclerModel implements DynamicRecyclerModel {
 
     private String title;
 
-    public YearlyMonthRecyclerModel(long timestamp, List<JarTableModel> jars) {
+    public YearlyMonthRecyclerModel(@NonNull String timestamp, List<JarTableModel> jars) {
         this.jars = jars;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp);
-        Date date = calendar.getTime();
-
-        this.title = new SimpleDateFormat("MMM", Locale.getDefault()).format(date);
+        this.title = DateUtils.reformatTimestamp(timestamp, DateUtils.HALF_MONTH_FORMAT);
     }
 
     public String getTitle() {

@@ -9,11 +9,11 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
+import com.wildsmith.jarble.jar.JarTableInMemoryCache;
 import com.wildsmith.jarble.timer.TimerService;
 import com.wildsmith.jarble.timer.TimerServiceBroadcastReceiver;
 import com.wildsmith.jarble.ui.jars.JarsModifiedBroadcastReceiver;
-import com.wildsmith.jarble.utils.BroadcastHelper;
+import com.wildsmith.utils.BroadcastHelper;
 
 import java.util.Calendar;
 import java.util.Locale;

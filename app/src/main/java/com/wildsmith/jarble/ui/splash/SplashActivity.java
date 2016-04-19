@@ -10,8 +10,8 @@ import com.wildsmith.jarble.timer.TimerServiceBroadcastReceiver;
 import com.wildsmith.jarble.ui.BaseActivity;
 import com.wildsmith.jarble.ui.ftux.FTUXActivity;
 import com.wildsmith.jarble.ui.jars.JarsActivity;
-import com.wildsmith.jarble.utils.BroadcastHelper;
-import com.wildsmith.jarble.utils.ThreadUtils;
+import com.wildsmith.utils.BroadcastHelper;
+import com.wildsmith.utils.ThreadUtils;
 
 public class SplashActivity extends BaseActivity implements TimerServiceBroadcastReceiver.Listener {
 

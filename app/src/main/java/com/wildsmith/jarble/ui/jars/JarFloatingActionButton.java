@@ -13,10 +13,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import com.wildsmith.bitmap.BitmapLoader;
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
-import com.wildsmith.jarble.ui.bitmap.BitmapLoader;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelView;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
 
 public class JarFloatingActionButton extends FloatingActionButton
     implements DynamicRecyclerModelView<JarViewRecyclerModel, JarViewRecyclerModelListener> {
@@ -81,7 +81,7 @@ public class JarFloatingActionButton extends FloatingActionButton
         public void run() {
             new BitmapLoader.Builder().setResources(getResources())
                 .setPlaceHolderBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon_puzzle_piece))
-                .setImageName(model.getTimestampAsString()).setImageByteArray(model.getImage())
+                .setImageName(model.getTimestamp()).setImageByteArray(model.getImage())
                 .setImageView(JarFloatingActionButton.this).setWidth(getWidth()).setHeight(getHeight()).setLoaderCallback(
                 new BitmapLoader.LoaderCallback() {
                     @Override

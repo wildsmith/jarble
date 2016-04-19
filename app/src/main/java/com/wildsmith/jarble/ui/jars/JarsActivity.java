@@ -30,23 +30,24 @@ import android.widget.TextView;
 
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
+import com.wildsmith.jarble.jar.JarTableInMemoryCache;
+import com.wildsmith.jarble.jar.JarTableInteractionHelper;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.jarble.marble.MarbleTableInteractionHelper;
+import com.wildsmith.jarble.marble.MarbleTableModel;
 import com.wildsmith.jarble.preferences.JarblePreferencesHelper;
 import com.wildsmith.jarble.preferences.SettingsActivity;
-import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
-import com.wildsmith.jarble.provider.jar.JarTableInteractionHelper;
-import com.wildsmith.jarble.provider.jar.JarTableMarbleModel;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
 import com.wildsmith.jarble.timer.TimerService;
 import com.wildsmith.jarble.ui.BaseActivity;
 import com.wildsmith.jarble.ui.GenericDialogFragment;
-import com.wildsmith.jarble.ui.bitmap.BitmapLoader;
+import com.wildsmith.bitmap.BitmapLoader;
 import com.wildsmith.jarble.ui.info.DescriptionActivity;
 import com.wildsmith.jarble.ui.info.InstructionsActivity;
 import com.wildsmith.jarble.ui.jars.monthly.MonthlyFragment;
 import com.wildsmith.jarble.ui.jars.weekly.WeeklyFragment;
 import com.wildsmith.jarble.ui.jars.yearly.YearlyFragment;
-import com.wildsmith.jarble.utils.BroadcastHelper;
-import com.wildsmith.jarble.utils.CollectionUtils;
+import com.wildsmith.utils.BroadcastHelper;
+import com.wildsmith.utils.CollectionUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -119,8 +120,9 @@ public class JarsActivity extends BaseActivity implements NavigationView.OnNavig
         JarTableModel model = JarTableInMemoryCache.getInProgressJarTableModel(this);
         if (model != null) {
             model.setInProgress(false);
-            JarTableMarbleModel.flipAllToDone(model.getMarbles());
+            MarbleTableModel.flipAllToDone(model.getMarbles());
             JarTableInteractionHelper.updateJarTableModel(this, model);
+            MarbleTableInteractionHelper.updateMarbleTableModels(this, model.getMarbles());
             BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
         }
     }
@@ -275,19 +277,9 @@ public class JarsActivity extends BaseActivity implements NavigationView.OnNavig
 
                         Calendar calendar = Calendar.getInstance();
 
-                        JarTableMarbleModel[] marbles = JarTableMarbleModel.buildEmptyMarbleArray();
-                        JarTableMarbleModel.flipInProgressOrEditingToDone(marbles,
-                            JarblePreferencesHelper.getMarbleAchievementsAsInteger(this));
-                        JarTableModel tableModel = new JarTableModel.Builder()
-                            .setYear(calendar.get(Calendar.YEAR))
-                            .setMonth(calendar.get(Calendar.MONTH))
-                            .setWeekOfMonth(calendar.get(Calendar.WEEK_OF_MONTH))
-                            .setDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK))
-                            .setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH))
-                            .setInProgress(true)
-                            .setMarbles(marbles)
-                            .build(calendar.getTimeInMillis());
-                        JarTableInteractionHelper.insertJarTableModel(this, tableModel);
+                        JarTableModel model = new JarTableModel.Builder().setInProgress(true).build(this, calendar.getTimeInMillis());
+                        JarTableInteractionHelper.insertJarTableModel(this, model);
+                        MarbleTableInteractionHelper.insertMarbleTableModels(this, model.getMarbles());
 
                         BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_CREATED.name()));
                     }

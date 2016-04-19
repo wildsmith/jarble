@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
-import com.wildsmith.jarble.provider.jar.JarTableInteractionHelper;
-import com.wildsmith.jarble.provider.jar.JarTableMarbleModel;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableInMemoryCache;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.jarble.marble.MarbleTableInteractionHelper;
+import com.wildsmith.jarble.marble.MarbleTableModel;
 import com.wildsmith.jarble.ui.BaseFragment;
 import com.wildsmith.jarble.ui.jars.JarsModifiedBroadcastReceiver;
-import com.wildsmith.jarble.utils.BroadcastHelper;
+import com.wildsmith.utils.BroadcastHelper;
 
 public class SingleJarFragment extends BaseFragment implements SingleJarView.Listener, MarbleInfoDialogFragment.Listener,
     JarsModifiedBroadcastReceiver.Listener {
@@ -108,8 +108,8 @@ public class SingleJarFragment extends BaseFragment implements SingleJarView.Lis
     }
 
     @Override
-    public void onMarbleClicked(@NonNull JarTableMarbleModel model, @NonNull FloatingActionButton marbleView) {
-        switch (JarTableMarbleModel.State.fromInt(model.getState())) {
+    public void onMarbleClicked(@NonNull MarbleTableModel model, @NonNull FloatingActionButton marbleView) {
+        switch (MarbleTableModel.State.fromInt(model.getState())) {
             case EDITING:
                 listener.onEditableMarbleClicked(model, marbleView);
                 break;
@@ -123,9 +123,9 @@ public class SingleJarFragment extends BaseFragment implements SingleJarView.Lis
     }
 
     @Override
-    public void onJarTableMarbleModelUpdated(JarTableMarbleModel model) {
-        JarTableMarbleModel.updateForNotes(this.model.getMarbles(), model);
-        JarTableInteractionHelper.updateJarTableModel(getContext(), this.model);
+    public void onJarTableMarbleModelUpdated(MarbleTableModel model) {
+        this.model.update(model);
+        MarbleTableInteractionHelper.updateMarbleTableModels(getContext(), this.model.getMarbles());
 
         BroadcastHelper.sendBroadcast(getContext(), new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
     }
@@ -138,7 +138,7 @@ public class SingleJarFragment extends BaseFragment implements SingleJarView.Lis
 
     interface Listener {
 
-        void onEditableMarbleClicked(@NonNull JarTableMarbleModel model, @NonNull FloatingActionButton marbleView);
+        void onEditableMarbleClicked(@NonNull MarbleTableModel model, @NonNull FloatingActionButton marbleView);
 
         //Fixes some issues with the component not measuring until later
         void setupBottomSheetViews();

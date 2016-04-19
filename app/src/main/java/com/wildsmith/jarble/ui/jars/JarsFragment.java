@@ -14,17 +14,17 @@ import android.view.ViewTreeObserver;
 
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.provider.jar.JarTableInMemoryCache;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
+import com.wildsmith.jarble.jar.JarTableInMemoryCache;
+import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.BaseFragment;
 import com.wildsmith.jarble.ui.jar.SingleJarActivity;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerAdapter;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelView;
-import com.wildsmith.jarble.utils.BroadcastHelper;
-import com.wildsmith.jarble.utils.CollectionUtils;
-import com.wildsmith.jarble.utils.GridAutofitLayoutManager;
-import com.wildsmith.jarble.utils.ThreadUtils;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
+import com.wildsmith.utils.BroadcastHelper;
+import com.wildsmith.utils.CollectionUtils;
+import com.wildsmith.utils.GridAutofitLayoutManager;
+import com.wildsmith.utils.ThreadUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -29,15 +29,16 @@ import android.widget.Spinner;
 
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
+import com.wildsmith.jarble.jar.JarTableInteractionHelper;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.jarble.marble.MarbleTableInteractionHelper;
+import com.wildsmith.jarble.marble.MarbleTableModel;
 import com.wildsmith.jarble.preferences.JarblePreferencesHelper;
-import com.wildsmith.jarble.provider.jar.JarTableInteractionHelper;
-import com.wildsmith.jarble.provider.jar.JarTableMarbleModel;
-import com.wildsmith.jarble.provider.jar.JarTableModel;
 import com.wildsmith.jarble.timer.TimerService;
 import com.wildsmith.jarble.ui.BaseActivity;
 import com.wildsmith.jarble.ui.GenericDialogFragment;
 import com.wildsmith.jarble.ui.jars.JarsModifiedBroadcastReceiver;
-import com.wildsmith.jarble.utils.BroadcastHelper;
+import com.wildsmith.utils.BroadcastHelper;
 
 import java.io.ByteArrayOutputStream;
 
@@ -164,10 +165,10 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
 
     @Override
     public void onRightButtonClicked() {
-        displayInfoDialog(JarTableMarbleModel.getInProgressMarble(model.getMarbles()));
+        displayInfoDialog(MarbleTableModel.getInProgressMarble(model.getMarbles()));
     }
 
-    private void displayInfoDialog(JarTableMarbleModel model) {
+    private void displayInfoDialog(MarbleTableModel model) {
         MarbleInfoDialogFragment dialogFragment = new MarbleInfoDialogFragment();
         dialogFragment.setModel(model);
         dialogFragment.setListener(this);
@@ -175,14 +176,16 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
     }
 
     @Override
-    public void onJarTableMarbleModelUpdated(JarTableMarbleModel model) {
-        final boolean hadEditingMarbles = JarTableMarbleModel.hasEditingMarbles(this.model.getMarbles());
+    public void onJarTableMarbleModelUpdated(MarbleTableModel model) {
+        final boolean hadEditingMarbles = MarbleTableModel.hasEditingMarbles(this.model.getMarbles());
 
-        JarTableMarbleModel.updateForNotes(this.model.getMarbles(), model);
-        JarTableMarbleModel.flipInProgressOrEditingToDone(this.model.getMarbles(),
+        this.model.update(model);
+
+        //TODO check to make sure that when the marbles here are flipped the model pointer here is also flipped
+        MarbleTableModel.flipInProgressOrEditingToDone(this.model.getMarbles(),
             JarblePreferencesHelper.getMarbleAchievementsAsInteger(this));
 
-        JarTableInteractionHelper.updateJarTableModel(this, this.model);
+        MarbleTableInteractionHelper.updateMarbleTableModel(this, model);
 
         BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
 
@@ -193,8 +196,8 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
 
     @Override
     public void onLeftButtonClicked() {
-        JarTableMarbleModel.flipInProgressToEditing(model.getMarbles());
-        JarTableInteractionHelper.updateJarTableModel(this, model);
+        MarbleTableModel.flipInProgressToEditing(model.getMarbles());
+        MarbleTableInteractionHelper.updateMarbleTableModels(this, model.getMarbles());
 
         BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
 
@@ -269,8 +272,8 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (JarTableMarbleModel.hasEditingMarbles(model.getMarbles())) {
-                    displayInfoDialog(JarTableMarbleModel.getEditingMarble(model.getMarbles()));
+                if (MarbleTableModel.hasEditingMarbles(model.getMarbles())) {
+                    displayInfoDialog(MarbleTableModel.getEditingMarble(model.getMarbles()));
                 } else {
                     saveAndFinishActivity();
                 }
@@ -296,7 +299,7 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
     private void saveAndFinishActivity() {
         updateModelImage();
 
-        if (!JarTableMarbleModel.hasInProgressMarbles(this.model.getMarbles())) {
+        if (!MarbleTableModel.hasInProgressMarbles(this.model.getMarbles())) {
             this.model.setInProgress(false);
         } else {
             TimerService timerService = BaseApplication.getTimerService();
@@ -333,7 +336,7 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
                 if (behavior != null) {
                     switch (mode) {
                         case EDIT:
-                            if (JarTableMarbleModel.hasEditingMarbles(model.getMarbles())) {
+                            if (MarbleTableModel.hasEditingMarbles(model.getMarbles())) {
                                 behavior.setHideable(false);
                                 behavior.setPeekHeight(toolbar.getHeight());
                                 behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -445,11 +448,11 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
     }
 
     @Override
-    public void onEditableMarbleClicked(@NonNull JarTableMarbleModel model, @NonNull FloatingActionButton marbleView) {
+    public void onEditableMarbleClicked(@NonNull MarbleTableModel model, @NonNull FloatingActionButton marbleView) {
         if (selectedColor != 0) {
             model.setColor(String.format("#%06X", (0xFFFFFF & selectedColor)));
-            JarTableMarbleModel.updateForColor(this.model.getMarbles(), model);
-            JarTableInteractionHelper.updateJarTableModel(this, this.model);
+            MarbleTableInteractionHelper.updateMarbleTableModel(this, model);
+            this.model.update(model);
             BroadcastHelper.sendBroadcast(this, new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
 
             marbleView.setBackgroundTintList(ColorStateList.valueOf(selectedColor));

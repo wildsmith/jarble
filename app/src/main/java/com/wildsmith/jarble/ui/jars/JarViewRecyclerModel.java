@@ -1,7 +1,7 @@
 package com.wildsmith.jarble.ui.jars;
 
-import com.wildsmith.jarble.provider.jar.JarTableModel;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModel;
+import com.wildsmith.jarble.jar.JarTableModel;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 
 public abstract class JarViewRecyclerModel implements DynamicRecyclerModel {
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.ui.jars.JarViewRecyclerModelListener;
-import com.wildsmith.jarble.ui.recyclerview.dynamic.DynamicRecyclerModelView;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
 
 class YearlyMonthRecyclerModelView extends LinearLayout implements
     DynamicRecyclerModelView<YearlyMonthRecyclerModel, JarViewRecyclerModelListener> {
