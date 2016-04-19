@@ -44,6 +44,7 @@ public class MarbleTableModel implements Parcelable {
             return;
         }
 
+        timestamp = in.readString();
         number = in.readInt();
         state = in.readInt();
         color = in.readString();
@@ -58,6 +59,7 @@ public class MarbleTableModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(timestamp);
         dest.writeInt(number);
         dest.writeInt(state);
         dest.writeString(color);
