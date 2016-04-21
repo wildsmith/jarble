@@ -106,6 +106,10 @@ public abstract class JarsFragment extends BaseFragment implements JarsModifiedB
         int row = -1;
         for (int index = 0; index < recyclerView.getChildCount(); index++) {
             View startingView = recyclerView.getChildAt(index);
+            if (isIgnorableTransitionView(startingView)) {
+                continue;
+            }
+
             final int currentSpan = getCurrentSpan(startingView);
             if (previousSpan == -1) {
                 previousSpan = currentSpan;
@@ -143,12 +147,19 @@ public abstract class JarsFragment extends BaseFragment implements JarsModifiedB
             public boolean onPreDraw() {
                 sceneRoot.getViewTreeObserver().removeOnPreDrawListener(this);
 
+                int usedTransitionNamed = 0;
                 for (int index = 0; index < recyclerView.getChildCount(); index++) {
-                    if (index >= transitionNames.size()) {
+                    if (usedTransitionNamed >= transitionNames.size()) {
                         break;
                     }
 
-                    recyclerView.getChildAt(index).setTransitionName(transitionNames.get(index));
+                    View endingView = recyclerView.getChildAt(index);
+                    if (isIgnorableTransitionView(endingView)) {
+                        continue;
+                    }
+
+                    endingView.setTransitionName(transitionNames.get(usedTransitionNamed));
+                    usedTransitionNamed++;
                 }
 
                 transitionNames.clear();
@@ -156,6 +167,8 @@ public abstract class JarsFragment extends BaseFragment implements JarsModifiedB
             }
         });
     }
+
+    protected abstract boolean isIgnorableTransitionView(View transitionView);
 
     protected int getCurrentSpan(@NonNull View view) {
         return (int) view.getX() / getColumnWidthFromChild(view.getResources());

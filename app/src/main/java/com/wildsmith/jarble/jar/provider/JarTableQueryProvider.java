@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.wildsmith.jarble.jar.JarTableStructure;
 import com.wildsmith.provider.QueryProvider;
@@ -28,7 +29,9 @@ public class JarTableQueryProvider extends JarTableProviderUri implements QueryP
                 break;
         }
 
-        sortOrder = JarTableStructure.Column.TIME_STAMP.title() + " DESC";
+        if (TextUtils.isEmpty(sortOrder)) {
+            sortOrder = JarTableStructure.Column.TIME_STAMP.title() + " ASC";
+        }
 
         Cursor cursor = query(openHelper, queryBuilder, projection, selection, selectionArgs, sortOrder);
         if (cursor == null) {

@@ -146,4 +146,9 @@ public class WeeklyFragment extends JarsFragment {
     public static int getColumnWidth(@NonNull Resources resources) {
         return (int) resources.getDimension(R.dimen.weekly_jar_size);
     }
+
+    @Override
+    protected boolean isIgnorableTransitionView(View transitionView) {
+        return transitionView instanceof WeeklyDayRecyclerModelView;
+    }
 }

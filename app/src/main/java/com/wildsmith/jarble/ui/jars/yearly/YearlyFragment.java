@@ -218,4 +218,10 @@ public class YearlyFragment extends JarsFragment {
             }
         });
     }
+
+    //TODO switch out of using a GridView and simply use the GridLayoutManager
+    @Override
+    protected boolean isIgnorableTransitionView(View transitionView) {
+        return transitionView instanceof YearlyMonthRecyclerModelView || transitionView instanceof YearlyYearRecyclerModelView;
+    }
 }

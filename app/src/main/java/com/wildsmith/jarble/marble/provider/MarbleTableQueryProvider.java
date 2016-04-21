@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.wildsmith.jarble.marble.MarbleTableStructure;
 import com.wildsmith.provider.QueryProvider;
@@ -28,7 +29,9 @@ public class MarbleTableQueryProvider extends MarbleTableProviderUri implements 
                 break;
         }
 
-        sortOrder = MarbleTableStructure.Column.TIME_STAMP.title() + " DESC";
+        if (TextUtils.isEmpty(sortOrder)) {
+            sortOrder = MarbleTableStructure.Column.NUMBER.title() + " ASC";
+        }
 
         Cursor cursor = query(openHelper, queryBuilder, projection, selection, selectionArgs, sortOrder);
         if (cursor == null) {
