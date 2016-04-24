@@ -16,7 +16,7 @@ import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 import com.wildsmith.utils.CollectionUtils;
 import com.wildsmith.utils.DateUtils;
-import com.wildsmith.utils.GridAutofitLayoutManager;
+import com.wildsmith.layoutmanager.GridAutoFitLayoutManager;
 import com.wildsmith.utils.RecyclerViewItemDecoration;
 
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ import java.util.List;
 public class WeeklyFragment extends JarsFragment {
 
     public static final String TAG = WeeklyFragment.class.getSimpleName();
+
+    private int spanSize;
 
     public static WeeklyFragment newInstance() {
         return new WeeklyFragment();
@@ -60,7 +62,7 @@ public class WeeklyFragment extends JarsFragment {
 
         recyclerView.setHasFixedSize(true);
 
-        final GridLayoutManager layoutManager = new GridAutofitLayoutManager(getActivity(), getColumnWidth(getResources()));
+        final GridLayoutManager layoutManager = new GridAutoFitLayoutManager(getActivity(), getSpanSize(getResources()));
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -140,11 +142,14 @@ public class WeeklyFragment extends JarsFragment {
     }
 
     @Override
-    public int getColumnWidthFromChild(Resources resources) {
-        return getColumnWidth(resources);
+    public int getSpanSizeFromChild(Resources resources) {
+        if (spanSize == 0) {
+            spanSize = getSpanSize(resources);
+        }
+        return spanSize;
     }
 
-    public static int getColumnWidth(@NonNull Resources resources) {
+    public static int getSpanSize(@NonNull Resources resources) {
         return (int) resources.getDimension(R.dimen.weekly_jar_size);
     }
 

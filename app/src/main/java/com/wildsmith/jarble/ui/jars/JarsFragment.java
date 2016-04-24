@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -18,12 +19,12 @@ import com.wildsmith.jarble.jar.JarTableInMemoryCache;
 import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.BaseFragment;
 import com.wildsmith.jarble.ui.jar.SingleJarActivity;
+import com.wildsmith.layoutmanager.LayoutManagerHelper;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
 import com.wildsmith.utils.BroadcastHelper;
 import com.wildsmith.utils.CollectionUtils;
-import com.wildsmith.utils.GridAutofitLayoutManager;
 import com.wildsmith.utils.ThreadUtils;
 
 import java.util.ArrayList;
@@ -171,25 +172,29 @@ public abstract class JarsFragment extends BaseFragment implements JarsModifiedB
     protected abstract boolean isIgnorableTransitionView(View transitionView);
 
     protected int getCurrentSpan(@NonNull View view) {
-        return (int) view.getX() / getColumnWidthFromChild(view.getResources());
+        return (int) view.getX() / getSpanSizeFromChild(view.getResources());
     }
 
-    protected abstract int getColumnWidthFromChild(Resources resources);
+    protected abstract int getSpanSizeFromChild(Resources resources);
 
     public static int getSpanCount(int columnWidth) {
-        return GridAutofitLayoutManager.buildSpanCount(columnWidth, orientation, width, height, paddingLeft, paddingTop, paddingRight,
+        return LayoutManagerHelper.buildSpanCount(columnWidth, orientation, width, height, paddingLeft, paddingTop, paddingRight,
             paddingBottom);
     }
 
     protected void setupRecyclerViewAnimationPointers() {
-        final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
         recyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                orientation = layoutManager.getOrientation();
+                final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    orientation = ((LinearLayoutManager) layoutManager).getOrientation();
+                } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+                    orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
+                }
+
                 width = layoutManager.getWidth();
                 height = layoutManager.getHeight();
                 paddingLeft = layoutManager.getPaddingLeft();

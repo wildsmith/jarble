@@ -4,24 +4,18 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.GridView;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
-import com.wildsmith.jarble.ui.jars.JarViewRecyclerModelListener;
+import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelListener;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
 
 class YearlyMonthRecyclerModelView extends LinearLayout implements
-    DynamicRecyclerModelView<YearlyMonthRecyclerModel, JarViewRecyclerModelListener> {
+    DynamicRecyclerModelView<YearlyMonthRecyclerModel, DynamicRecyclerModelListener> {
 
     private TextView monthTextView;
-
-    private GridView monthJarsGridView;
-
-    private YearlyMonthGridViewAdapter adapter;
-
-    private JarViewRecyclerModelListener listener;
 
     public YearlyMonthRecyclerModelView(Context context) {
         this(context, null);
@@ -40,23 +34,24 @@ class YearlyMonthRecyclerModelView extends LinearLayout implements
         inflate(context, R.layout.yearly_month_view, this);
 
         monthTextView = (TextView) findViewById(R.id.month);
-        monthJarsGridView = (GridView) findViewById(R.id.month_jars);
-
-        adapter = new YearlyMonthGridViewAdapter(context);
     }
 
     @Override
-    public void setListener(JarViewRecyclerModelListener listener) {
-        this.listener = listener;
+    public void setListener(DynamicRecyclerModelListener listener) {
+        //no listener necessary
     }
 
     @Override
-    public void populateView(@NonNull YearlyMonthRecyclerModel model, int position, int size) {
+    public void populateView(@NonNull final YearlyMonthRecyclerModel model, int position, int size) {
         monthTextView.setText(model.getTitle());
-
-        adapter.setJars(model.getJars());
-        adapter.setListener(listener);
-        monthJarsGridView.setAdapter(adapter);
+        getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                getViewTreeObserver().removeOnPreDrawListener(this);
+                setMinimumHeight(model.getHeight());
+                return true;
+            }
+        });
     }
 
     @Override

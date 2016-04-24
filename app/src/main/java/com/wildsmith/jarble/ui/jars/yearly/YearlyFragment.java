@@ -1,30 +1,32 @@
 package com.wildsmith.jarble.ui.jars.yearly;
 
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.SharedElementCallback;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.TextView;
 
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.jarble.ui.jars.JarsFragment;
+import com.wildsmith.layoutmanager.StaggeredGridAutoFitLayoutManager;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 import com.wildsmith.utils.CollectionUtils;
+import com.wildsmith.utils.RecyclerViewItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class YearlyFragment extends JarsFragment {
+public class YearlyFragment extends JarsFragment implements StaggeredGridAutoFitLayoutManager.Listener, YearlyMonthRecyclerModel.Listener {
 
     public static final String TAG = YearlyFragment.class.getSimpleName();
+
+    private int spanCount;
+
+    private int spanSize;
 
     public static YearlyFragment newInstance() {
         return new YearlyFragment();
@@ -32,7 +34,7 @@ public class YearlyFragment extends JarsFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return YearlyViewWrapper.onCreateView(inflater.inflate(R.layout.recycler_view_linear, container, false));
+        return YearlyViewWrapper.onCreateView(inflater.inflate(R.layout.recycler_view_grid, container, false));
     }
 
     @Override
@@ -59,9 +61,18 @@ public class YearlyFragment extends JarsFragment {
 
         recyclerView.setHasFixedSize(true);
 
+        if (spanCount == 0) {
+            recyclerView.setLayoutManager(new StaggeredGridAutoFitLayoutManager(this, recyclerView, getSpanSizeFromChild(getResources())));
+        } else {
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL));
+        }
+
         if (recyclerAdapter == null) {
             recyclerAdapter = new DynamicRecyclerAdapter<>(this);
         }
+
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration(getResources(),
+            R.dimen.yearly_recycler_view_item_decoration_space));
 
         recyclerView.setAdapter(recyclerAdapter);
     }
@@ -83,7 +94,11 @@ public class YearlyFragment extends JarsFragment {
         } else {
             recyclerItems = new ArrayList<>(jarTableModels.size());
 
-            List<JarTableModel> monthlyJarTableModels = new ArrayList<>();
+            //In order to have the month column size properly the number of jars in the month AND the pointer to the previous month
+            // recycler model need to be retained.
+            int jarsInMonth = 0;
+            YearlyMonthRecyclerModel monthRecyclerModel = null;
+
             int previousYear = -1;
             int previousMonth = -1;
             for (JarTableModel jarTableModel : jarTableModels) {
@@ -92,7 +107,8 @@ public class YearlyFragment extends JarsFragment {
                     recyclerItems.add(new YearlyYearRecyclerModel("" + previousYear));
 
                     previousMonth = jarTableModel.getMonth();
-                    recyclerItems.add(new YearlyMonthRecyclerModel(jarTableModel.getTimestamp(), monthlyJarTableModels));
+                    monthRecyclerModel = new YearlyMonthRecyclerModel(this, jarTableModel.getTimestamp());
+                    recyclerItems.add(monthRecyclerModel);
                 }
 
                 final int newYear = jarTableModel.getYear();
@@ -102,14 +118,23 @@ public class YearlyFragment extends JarsFragment {
 
                 final int newMonth = jarTableModel.getMonth();
                 if (previousMonth != newMonth) {
-                    recyclerItems.add(new YearlyMonthRecyclerModel(jarTableModel.getTimestamp(), monthlyJarTableModels));
-                    monthlyJarTableModels = new ArrayList<>();
-                } else {
-                    monthlyJarTableModels.add(jarTableModel);
+                    monthRecyclerModel.setJarsInMonth(jarsInMonth);
+                    monthRecyclerModel = new YearlyMonthRecyclerModel(this, jarTableModel.getTimestamp());
+                    recyclerItems.add(monthRecyclerModel);
+                    jarsInMonth = 0;
                 }
+
+                recyclerItems.add(new YearlyJarRecyclerModel(jarTableModel));
 
                 previousYear = jarTableModel.getYear();
                 previousMonth = jarTableModel.getMonth();
+
+                jarsInMonth++;
+            }
+
+            //for the last month recycler model
+            if (monthRecyclerModel != null) {
+                monthRecyclerModel.setJarsInMonth(jarsInMonth);
             }
         }
 
@@ -117,111 +142,33 @@ public class YearlyFragment extends JarsFragment {
     }
 
     @Override
-    public int getColumnWidthFromChild(Resources resources) {
-        return getColumnWidth(resources);
+    public int getSpanSizeFromChild(Resources resources) {
+        if (spanSize == 0) {
+            spanSize = getSpanSize(resources);
+        }
+        return spanSize;
     }
 
-    public static int getColumnWidth(@NonNull Resources resources) {
+    public static int getSpanSize(@NonNull Resources resources) {
         return (int) resources.getDimension(R.dimen.yearly_jars_gridview_jar_size);
     }
 
-    @TargetApi(21)
-    @Override
-    public void buildTransitionNames(@NonNull FragmentTransaction fragmentTransaction, int newSpanCount,
-        final JarsFragment destinationFragment) {
-
-        for (int index = 0; index < recyclerView.getChildCount(); index++) {
-            View child = recyclerView.getChildAt(index);
-            if (child instanceof YearlyMonthRecyclerModelView) {
-                int previousSpan = -1;
-                int row = -1;
-                for (int monthIndex = 0; monthIndex < ((YearlyMonthRecyclerModelView) child).getChildCount(); monthIndex++) {
-                    View monthChild = ((YearlyMonthRecyclerModelView) child).getChildAt(monthIndex);
-                    if (monthChild instanceof TextView) {
-                        final String transitionName = "0" + row;
-                        monthChild.setTransitionName(transitionName);
-                        fragmentTransaction.addSharedElement(monthChild, transitionName);
-                        transitionNames.add(transitionName);
-                        row++;
-                    } else if (monthChild instanceof YearlyMonthGridView) {
-                        for (int gridIndex = 0; gridIndex < ((YearlyMonthGridView) monthChild).getChildCount(); gridIndex++) {
-                            View gridChild = ((YearlyMonthGridView) monthChild).getChildAt(gridIndex);
-                            final int currentSpan = getCurrentSpan(gridChild);
-                            if (previousSpan == -1) {
-                                previousSpan = currentSpan;
-                            }
-                            if (previousSpan >= currentSpan) {
-                                row++;
-                            }
-                            final String transitionName = "" + currentSpan + row;
-                            gridChild.setTransitionName(transitionName);
-                            fragmentTransaction.addSharedElement(gridChild, transitionName);
-                            transitionNames.add(transitionName);
-                        }
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-        destinationFragment.setTransitionNames(transitionNames);
-
-        final View sceneRoot = getActivity().findViewById(R.id.content);
-        destinationFragment.setEnterSharedElementCallback(new SharedElementCallback() {
-            @Override
-            public void onSharedElementStart(List<String> sharedElementNames, List<View> sharedElements,
-                List<View> sharedElementSnapshots) {
-                destinationFragment.reBuildTransitionNames(sceneRoot);
-            }
-        });
-    }
-
-    @TargetApi(21)
-    @Override
-    public void reBuildTransitionNames(final View sceneRoot) {
-        if (sceneRoot == null || CollectionUtils.isEmpty(transitionNames) || recyclerView == null) {
-            return;
-        }
-
-        sceneRoot.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                sceneRoot.getViewTreeObserver().removeOnPreDrawListener(this);
-
-                for (int index = 0; index < recyclerView.getChildCount(); index++) {
-                    View child = recyclerView.getChildAt(index);
-                    if (child instanceof YearlyMonthRecyclerModelView) {
-                        for (int monthIndex = 0; monthIndex < ((YearlyMonthRecyclerModelView) child).getChildCount(); monthIndex++) {
-                            View monthChild = ((YearlyMonthRecyclerModelView) child).getChildAt(monthIndex);
-                            if (monthChild instanceof TextView) {
-                                monthChild.setTransitionName(transitionNames.get(monthIndex));
-                                transitionNames.remove(monthIndex);
-                            } else if (monthChild instanceof YearlyMonthGridView) {
-                                for (int gridIndex = 0; gridIndex < ((YearlyMonthGridView) monthChild).getChildCount(); gridIndex++) {
-                                    if (gridIndex >= transitionNames.size()) {
-                                        break;
-                                    }
-
-                                    View gridChild = ((YearlyMonthGridView) monthChild).getChildAt(gridIndex);
-                                    gridChild.setTransitionName(transitionNames.get(gridIndex));
-                                }
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-
-                transitionNames.clear();
-                return true;
-            }
-        });
-    }
-
-    //TODO switch out of using a GridView and simply use the GridLayoutManager
     @Override
     protected boolean isIgnorableTransitionView(View transitionView) {
         return transitionView instanceof YearlyMonthRecyclerModelView || transitionView instanceof YearlyYearRecyclerModelView;
+    }
+
+    @Override
+    public void onSpanCountSet(int spanCount) {
+        this.spanCount = spanCount;
+    }
+
+    @Override
+    public int getHeight(int jarsInMonth) {
+        StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
+        //Due to the span taken up by the month the real span count is spanCount - 1
+        final float spanCount = layoutManager.getSpanCount() - 1;
+        final double rowCount = Math.ceil(jarsInMonth / spanCount);
+        return (int) rowCount * getSpanSize(getResources());
     }
 }

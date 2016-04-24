@@ -448,7 +448,7 @@ public class JarsActivity extends BaseActivity implements NavigationView.OnNavig
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     currentFragment.buildTransitionNames(fragmentTransaction,
-                        JarsFragment.getSpanCount(YearlyFragment.getColumnWidth(getResources())), destinationFragment);
+                        JarsFragment.getSpanCount(YearlyFragment.getSpanSize(getResources())), destinationFragment);
                 }
 
                 showContentFragment(fragmentTransaction, currentFragment, destinationFragment);
@@ -466,7 +466,7 @@ public class JarsActivity extends BaseActivity implements NavigationView.OnNavig
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     currentFragment.buildTransitionNames(fragmentTransaction,
-                        JarsFragment.getSpanCount(YearlyFragment.getColumnWidth(getResources())), destinationFragment);
+                        JarsFragment.getSpanCount(YearlyFragment.getSpanSize(getResources())), destinationFragment);
                 }
 
                 showContentFragment(fragmentTransaction, currentFragment, destinationFragment);
@@ -484,7 +484,7 @@ public class JarsActivity extends BaseActivity implements NavigationView.OnNavig
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     currentFragment.buildTransitionNames(fragmentTransaction,
-                        JarsFragment.getSpanCount(YearlyFragment.getColumnWidth(getResources())), destinationFragment);
+                        JarsFragment.getSpanCount(YearlyFragment.getSpanSize(getResources())), destinationFragment);
                 }
 
                 showContentFragment(fragmentTransaction, currentFragment, destinationFragment);

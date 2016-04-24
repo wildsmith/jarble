@@ -9,4 +9,6 @@
     <dimen name="yearly_jars_gridview_loading_size">30dp</dimen>
     <dimen name="yearly_jars_gridview_marble_size">10dp</dimen>
 
+    <dimen name="yearly_recycler_view_item_decoration_space">2dp</dimen>
+
 </resources>

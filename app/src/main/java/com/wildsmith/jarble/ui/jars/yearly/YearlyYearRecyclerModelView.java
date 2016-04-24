@@ -3,6 +3,7 @@ package com.wildsmith.jarble.ui.jars.yearly;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +44,9 @@ class YearlyYearRecyclerModelView extends LinearLayout implements
     @Override
     public void populateView(@NonNull YearlyYearRecyclerModel model, int position, int size) {
         yearTextView.setText(model.getTitle());
+
+        StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) getLayoutParams();
+        layoutParams.setFullSpan(true);
     }
 
     @Override
