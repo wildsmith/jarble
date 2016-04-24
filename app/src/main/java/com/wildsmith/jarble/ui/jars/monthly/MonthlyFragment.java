@@ -15,6 +15,7 @@ import com.wildsmith.recyclerview.dynamic.DynamicRecyclerAdapter;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 import com.wildsmith.utils.CollectionUtils;
 import com.wildsmith.utils.GridAutofitLayoutManager;
+import com.wildsmith.utils.RecyclerViewItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class MonthlyFragment extends JarsFragment {
             recyclerAdapter = new DynamicRecyclerAdapter<>(this);
         }
 
-        recyclerView.addItemDecoration(new MonthlyRecyclerViewItemDecoration(getResources(),
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration(getResources(),
             R.dimen.monthly_recycler_view_item_decoration_space));
 
         recyclerView.setAdapter(recyclerAdapter);

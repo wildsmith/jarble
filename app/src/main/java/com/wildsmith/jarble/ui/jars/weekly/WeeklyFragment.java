@@ -17,6 +17,7 @@ import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModel;
 import com.wildsmith.utils.CollectionUtils;
 import com.wildsmith.utils.DateUtils;
 import com.wildsmith.utils.GridAutofitLayoutManager;
+import com.wildsmith.utils.RecyclerViewItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,7 +78,7 @@ public class WeeklyFragment extends JarsFragment {
             recyclerAdapter = new DynamicRecyclerAdapter<>(this);
         }
 
-        recyclerView.addItemDecoration(new WeeklyRecyclerViewItemDecoration(getResources(),
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration(getResources(),
             R.dimen.weekly_recycler_view_item_decoration_space));
 
         recyclerView.setAdapter(recyclerAdapter);
