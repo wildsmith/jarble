@@ -80,6 +80,9 @@ public class BitmapLoader {
         final Bitmap bitmap = BitmapCacheManager.getBitmapFromCache(getCacheKey(resourceId, imageName));
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
+            if (callback != null) {
+                callback.onSetImageBitmapComplete(bitmap);
+            }
         } else if (cancelPotentialWork(getCacheKey(resourceId, imageName), imageView)) {
             final BitmapWorkerTask task = new BitmapWorkerTask(imageView, width, height);
             imageView.setImageDrawable(new AsyncDrawable(resources, getPlaceHolderBitmap(placeHolderBitmap), task));
@@ -321,8 +324,7 @@ public class BitmapLoader {
                     break;
                 case FILE:
                     try {
-                        BitmapUtils
-                            .decodeSampledBitmapFromFile((String) params[Index.IMAGE_PATH.ordinal()], width, height);
+                        BitmapUtils.decodeSampledBitmapFromFile((String) params[Index.IMAGE_PATH.ordinal()], width, height);
                     } catch (Exception e) {
                         if (resourceId != 0) {
                             Log.d(TAG, "Could not load the bitmap from file. Attempting to use resourceId.", e);
@@ -396,7 +398,7 @@ public class BitmapLoader {
 
     public static abstract class LoaderCallback {
 
-        public void onSetImageBitmapComplete(Bitmap bitmap) {
+        public void onSetImageBitmapComplete(@NonNull Bitmap bitmap) {
 
         }
     }

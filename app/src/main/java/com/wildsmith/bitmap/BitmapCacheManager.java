@@ -24,7 +24,7 @@ public class BitmapCacheManager {
     private static void initializeBitmapCache() {
         // Get max available VM memory, exceeding this amount will throw an OutOfMemory exception. Stored in kilobytes as LruCache takes
         // an int in its constructor.
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / BitmapUtils.DEFAULT_IMAGE_LENGTH);
 
         // Use 1/8th of the available memory for this memory cache.
         final int cacheSize = maxMemory / CACHE_MAX_MEMORY_DENOMINATOR;
@@ -33,7 +33,7 @@ public class BitmapCacheManager {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
                 // The cache size will be measured in kilobytes rather than number of items.
-                return bitmap.getByteCount() / 1024;
+                return bitmap.getByteCount() / BitmapUtils.DEFAULT_IMAGE_LENGTH;
             }
         };
     }

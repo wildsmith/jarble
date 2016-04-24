@@ -3,7 +3,6 @@ package com.wildsmith.jarble.ui.jar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.wildsmith.bitmap.BitmapUtils;
 import com.wildsmith.jarble.BaseApplication;
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.jar.JarTableInteractionHelper;
@@ -39,8 +39,6 @@ import com.wildsmith.jarble.ui.BaseActivity;
 import com.wildsmith.jarble.ui.GenericDialogFragment;
 import com.wildsmith.jarble.ui.jars.JarsModifiedBroadcastReceiver;
 import com.wildsmith.utils.BroadcastHelper;
-
-import java.io.ByteArrayOutputStream;
 
 public class SingleJarActivity extends BaseActivity implements SingleJarFragment.Listener, GenericDialogFragment.Listener,
     MarbleInfoDialogFragment.Listener, AdapterView.OnItemSelectedListener {
@@ -113,6 +111,10 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                updateModelImage();
+                JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, this.model);
+                BroadcastHelper.sendBroadcast(SingleJarActivity.this, JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name());
+
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
         }
@@ -282,18 +284,13 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
         });
     }
 
-    private void updateModelImage() {
+    private boolean updateModelImage() {
         SingleJarView view = (SingleJarView) findViewById(R.id.single_jar_view);
         if (view != null) {
-            view.setDrawingCacheEnabled(true);
-            view.buildDrawingCache();
-            Bitmap bm = view.getDrawingCache();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.PNG, 0, stream);
-            byte[] byteArray = stream.toByteArray();
-            view.setDrawingCacheEnabled(false);
-            model.setImage(byteArray);
+            model.setImage(BitmapUtils.createViewBitmapArray(view));
+            return true;
         }
+        return false;
     }
 
     private void saveAndFinishActivity() {
@@ -309,8 +306,7 @@ public class SingleJarActivity extends BaseActivity implements SingleJarFragment
         }
         JarTableInteractionHelper.updateJarTableModel(SingleJarActivity.this, this.model);
 
-        BroadcastHelper.sendBroadcast(SingleJarActivity.this,
-            new Intent(JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name()));
+        BroadcastHelper.sendBroadcast(SingleJarActivity.this, JarsModifiedBroadcastReceiver.IntentFilter.ON_JAR_UPDATED.name());
         finish();
     }
 

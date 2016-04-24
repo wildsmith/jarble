@@ -56,4 +56,14 @@ public class BroadcastHelper {
     public static void sendBroadcast(@NonNull Context context, @NonNull Intent intent) {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
+
+    /**
+     * Sends out a broadcast leveraging {@link LocalBroadcastManager}
+     *
+     * @param context used to get the instance of the {@link LocalBroadcastManager}.
+     * @param action  the action to add to the intent before sending the broadcast
+     */
+    public static void sendBroadcast(@NonNull Context context, @NonNull String action) {
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(action));
+    }
 }

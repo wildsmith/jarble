@@ -13,10 +13,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import com.wildsmith.bitmap.BitmapCacheManager;
 import com.wildsmith.bitmap.BitmapLoader;
 import com.wildsmith.jarble.R;
 import com.wildsmith.jarble.jar.JarTableModel;
 import com.wildsmith.recyclerview.dynamic.DynamicRecyclerModelView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JarFloatingActionButton extends FloatingActionButton
     implements DynamicRecyclerModelView<JarViewRecyclerModel, JarViewRecyclerModelListener> {
@@ -50,7 +54,7 @@ public class JarFloatingActionButton extends FloatingActionButton
         this.model = model.getJarTableModel();
 
         setupProgressIndicator(model.getJarTableModel());
-        setupImageButtonSource(model.getJarTableModel());
+        setupImageViewBitmap(model.getJarTableModel());
     }
 
     private void setupProgressIndicator(JarTableModel model) {
@@ -61,12 +65,19 @@ public class JarFloatingActionButton extends FloatingActionButton
         }
     }
 
-    private void setupImageButtonSource(JarTableModel model) {
+    private void setupImageViewBitmap(JarTableModel model) {
         if (model == null || model.getImage() == null || model.getImage().length == 0) {
             return;
         }
 
-//        post(bitmapLoader);
+        // Short circuit the bitmap loader to avoid loading the bitmap off of the main thread when the bitmap already exists in the cache
+        final Bitmap bitmap = BitmapCacheManager.getBitmapFromCache(model.getTimestamp());
+        if (bitmap != null) {
+            setImageBitmap(bitmap);
+            setBackgroundTintList(PaletteColorStateCache.getColorStateList(model.getTimestamp()));
+        } else {
+            post(bitmapLoader);
+        }
     }
 
     @TargetApi(21)
@@ -82,20 +93,50 @@ public class JarFloatingActionButton extends FloatingActionButton
             new BitmapLoader.Builder().setResources(getResources())
                 .setPlaceHolderBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon_puzzle_piece))
                 .setImageName(model.getTimestamp()).setImageByteArray(model.getImage())
-                .setImageView(JarFloatingActionButton.this).setWidth(getWidth()).setHeight(getHeight()).setLoaderCallback(
-                new BitmapLoader.LoaderCallback() {
+                .setImageView(JarFloatingActionButton.this).setWidth(getWidth()).setHeight(getHeight())
+                .setLoaderCallback(new BitmapLoader.LoaderCallback() {
                     @Override
-                    public void onSetImageBitmapComplete(Bitmap bitmap) {
-                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                            public void onGenerated(Palette palette) {
-                                JarFloatingActionButton.this.setBackgroundTintList(ColorStateList.valueOf(
-                                    palette.getDarkVibrantColor(ContextCompat.getColor(getContext(), R.color.medium_green))));
-                            }
-                        });
+                    public void onSetImageBitmapComplete(@NonNull Bitmap bitmap) {
+                        grabBackgroundColor(model.getTimestamp(), bitmap);
                     }
-                }).loadBitmap();
+                })
+                .loadBitmap();
         }
     };
+
+    private void grabBackgroundColor(@NonNull final String timestamp, @NonNull Bitmap bitmap) {
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            public void onGenerated(Palette palette) {
+                ColorStateList colorStateList = ColorStateList.valueOf(getPaletteColor(palette));
+                PaletteColorStateCache.addPaletteCache(timestamp, colorStateList);
+                setBackgroundTintList(colorStateList);
+            }
+        });
+    }
+
+    private int getPaletteColor(@NonNull Palette palette) {
+        final int defaultColor = ContextCompat.getColor(getContext(), R.color.medium_green);
+        int paletteColor = palette.getLightVibrantColor(defaultColor);
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getLightVibrantColor(defaultColor);
+        }
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getVibrantColor(defaultColor);
+        }
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getLightMutedColor(defaultColor);
+        }
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getVibrantColor(defaultColor);
+        }
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getDarkVibrantColor(defaultColor);
+        }
+        if (paletteColor == defaultColor) {
+            paletteColor = palette.getDarkMutedColor(defaultColor);
+        }
+        return paletteColor;
+    }
 
     private Runnable revealRunnable = new Runnable() {
         @TargetApi(21)
@@ -113,4 +154,21 @@ public class JarFloatingActionButton extends FloatingActionButton
             setVisibility(View.VISIBLE);
         }
     };
+
+    private static class PaletteColorStateCache {
+
+        private static final Map<String, ColorStateList> paletteCache = new HashMap<>();
+
+        public static ColorStateList getColorStateList(@NonNull String timestamp) {
+            synchronized (paletteCache) {
+                return paletteCache.get(timestamp);
+            }
+        }
+
+        public static void addPaletteCache(String timestamp, ColorStateList colorStateList) {
+            synchronized (paletteCache) {
+                paletteCache.put(timestamp, colorStateList);
+            }
+        }
+    }
 }

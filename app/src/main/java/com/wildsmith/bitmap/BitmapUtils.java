@@ -3,13 +3,24 @@ package com.wildsmith.bitmap;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Provides utility methods for loading/manipulating {@link Bitmap}s.
  */
 public class BitmapUtils {
+
+    static final int DEFAULT_IMAGE_LENGTH = 1024;
+
+    private static final int MAX_IMAGE_SIZE = DEFAULT_IMAGE_LENGTH * DEFAULT_IMAGE_LENGTH;
 
     /**
      * Load a {@link Bitmap} of arbitrarily large size sub-sampled to the requested width and height. If the requested width and height are
@@ -78,5 +89,44 @@ public class BitmapUtils {
         }
 
         return inSampleSize;
+    }
+
+    public static byte[] createViewBitmapArray(@NonNull View view) {
+        Bitmap bitmap = createViewBitmap(view);
+        if (bitmap == null) {
+            return null;
+        }
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    @Nullable
+    public static Bitmap createViewBitmap(@NonNull View view) {
+        RectF bounds = new RectF();
+        bounds.set(0, 0, view.getWidth(), view.getHeight());
+
+        Matrix matrix = new Matrix();
+        // TODO stop declaring these values over and over, also find out what transformMatrixToGlobal's source code is
+//        matrix.reset();
+//        view.transformMatrixToGlobal(matrix);
+        matrix.mapRect(bounds);
+
+        Bitmap bitmap = null;
+        int bitmapWidth = Math.round(bounds.width());
+        int bitmapHeight = Math.round(bounds.height());
+        if (bitmapWidth > 0 && bitmapHeight > 0) {
+            float scale = Math.min(1f, ((float) MAX_IMAGE_SIZE) / (bitmapWidth * bitmapHeight));
+            bitmapWidth *= scale;
+            bitmapHeight *= scale;
+            matrix.postTranslate(-bounds.left, -bounds.top);
+            matrix.postScale(scale, scale);
+            bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            canvas.concat(matrix);
+            view.draw(canvas);
+        }
+        return bitmap;
     }
 }
